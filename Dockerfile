@@ -15,6 +15,7 @@ ARG VERSION
 LABEL build_version="catfight360.com version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="VergilGao"
 LABEL build_from="https://github.com/hacdias/webdav"
+LABEL org.opencontainers.image.source https://github.com/VergilGao/docker-webdav
 
 ENV TZ="Asia/Shanghai"
 ENV UID=99
