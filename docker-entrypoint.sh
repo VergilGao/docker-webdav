@@ -1,13 +1,15 @@
 #!/bin/sh
 
 config_file="/config/custom-config.yml"
+USER=webdav
 
 echo "Setup Timezone to ${TZ}"
 echo "${TZ}" > /etc/timezone
 echo "Checking if UID: ${UID} matches user"
-usermod -u ${UID} alpha
+usermod -u ${UID} ${USER}
 echo "Checking if GID: ${GID} matches user"
-usermod -g ${GID} alpha
+groupmod -g ${GID} ${USER} > /dev/null 2>&1 ||:
+usermod -g ${GID} ${USER}
 echo "Setting umask to ${UMASK}"
 umask ${UMASK}
 
@@ -46,4 +48,4 @@ chown -R ${UID}:${GID} /data
 chown -R ${UID}:${GID} /config
 chown -R ${UID}:${GID} /app
 
-su -c "/app/webdav -c ${config_file}" alpha
+gosu ${USER} /app/webdav -c ${config_file}
